@@ -13,10 +13,10 @@ class VNH5019
     
     //move function which passes in power percent (which is converted to phase and PWM) to move device
     //could in future be changed to RPM
-    void move(uint8_t motor_percent); 
+    void drive(uint8_t motor_percent); 
     
     //brake function, in which the percent of motor used to break can specified
-    void VNH5019::brake(uint8_t brake_percent)
+    void brake(uint8_t brake_percent)
         
     //tells device to stop
     void stop();
@@ -30,7 +30,7 @@ class VNH5019
     VNH5019(const int PwmPin, const int InaPin, const int InbPin, bool upsideDown);
     
     //returns the last power percentage this device got commanded.
-    long getCurrentMove();
+    long getCurrentPercent();
 };
 
 #endif

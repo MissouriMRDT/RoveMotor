@@ -72,7 +72,7 @@ void VNH5019::brake(uint8_t brake_percent)
   analogWrite(PWM_PIN, pwm);
 }
 
-long VNH5019::getCurrentMove()
+long VNH5019::getCurrentPercent()
 {
   if(invert) //if we're inverted, then we technically move negatively even if we're moving in the 'positive' direction. The direction is the important part
   {
