@@ -7,48 +7,51 @@
 #include "RovePwmWrite.h"
 #include "RovePwmGen.h"
 
-#include <stdint.h>
-
 #include "Energia.h"
 
-/////////////////////////////////////////////////////////////////////////////
+#include <stdint.h>
 
-void RoveStmVnhPwm::attach( const uint8_t          ina_pin,
-                            const uint8_t          inb_pin,
-                            const uint8_t          pwm_pin,
-                            const uint8_t          adc_pin,
-                            const bool        invert_motor,
-                            const int       bus_millivolts,
-                            const int scale_pwm_millivolts,
-                            const int  scale_adc_milliamps )
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+bool RoveStmVnhPwm::isEnergiaAnalogWritePin( uint8_t pin ){ return digitalPinToTimer(             pin ); }
+bool RoveStmVnhPwm::isPwmAnalogWritePin(     uint8_t pin ){ return roveware::isPwmGenValid(       pin ); }
+bool RoveStmVnhPwm::isPinValid(              uint8_t pin ){ return this->isEnergiaAnalogWritePin( pin ) 
+                                                                || this->isPwmAnalogWritePin(     pin ); }
+
+void RoveStmVnhPwm::attach( uint8_t          ina_pin,
+                            uint8_t          inb_pin,
+                            uint8_t          pwm_pin,
+                            bool        invert_motor,
+                            int       bus_millivolts,
+                            int  scale_to_millivolts,
+                            uint8_t          adc_pin,
+                            int  scale_to_milliamps )
 { 
   this->ina_pin               =               ina_pin;
   this->inb_pin               =               inb_pin;
   this->pwm_pin               =               pwm_pin;
-  this->adc_pin               =               adc_pin;
-  this->scale_adc_milliamps   =   scale_adc_milliamps;
   this->invert_motor          =          invert_motor;
-  this->scale_pwm_decipercent = ( 1000*scale_pwm_millivolts ) / bus_millivolts;
+  this->scale_pwm_decipercent = ( 1000*scale_to_millivolts ) / bus_millivolts;
+  this->adc_pin               =               adc_pin;
+  this->scale_adc_milliamps   =    scale_to_milliamps;
 
-  if( digitalPinToTimer( pwm_pin ) )
-  { this->pwm_mode = USE_ENERGIA_ANALOG_WRITE; }
+  if( this->isEnergiaAnalogWritePin( pwm_pin ) )
+  {   this->pwm_mode = USE_ENERGIA_ANALOG_WRITE; }
 
-  else if( roveware::isPwmGenValid( pwm_pin ) )
-  { this->pwm_mode = USE_ROVE_PWM_ANALOG_WRITE; }
+  else if( this->isPwmAnalogWritePin( pwm_pin ) )
+  {   this->pwm_mode = USE_ROVE_PWM_ANALOG_WRITE; }
 
   else 
-  { this->pwm_mode = INVALID; }
+  {   this->pwm_mode = INVALID; }
 
   if(            this->pwm_mode != INVALID )
   {   pinMode(   this->pwm_pin,    OUTPUT );
       pinMode(   this->ina_pin,    OUTPUT );
       pinMode(   this->inb_pin,    OUTPUT );
-      if (       this->adc_pin  != 0     ){
-        pinMode( this->adc_pin,    INPUT );
-      } 
+      if (       this->adc_pin  != 0      )
+      { pinMode( this->adc_pin,    INPUT ); } 
 } }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void RoveStmVnhPwm::writeCommand( bool ina_value, bool inb_value, int pwm_value )
 {
   if( this->invert_motor )
@@ -63,11 +66,13 @@ void RoveStmVnhPwm::writeCommand( bool ina_value, bool inb_value, int pwm_value 
            digitalWrite( this->ina_pin, ina_value );
            digitalWrite( this->inb_pin, inb_value ); }
 
-  else if( this->pwm_mode == USE_ROVE_PWM_ANALOG_WRITE ){
+  else if( this->pwm_mode == USE_ROVE_PWM_ANALOG_WRITE )
+  {
      rovePwmAnalogWrite( this->pwm_pin, pwm_value );
            digitalWrite( this->ina_pin, ina_value );
            digitalWrite( this->inb_pin, inb_value ); }
 }
+
 
 //////////////////////////////////////////////////////////////////////////
 void RoveStmVnhPwm::drive( int decipercent )
@@ -92,7 +97,7 @@ void RoveStmVnhPwm::coast()
 ///////////////////////////////////////////////////////////////////////////////////////
 int RoveStmVnhPwm::readMilliamps()
 { if( !this->adc_pin ) 
-  { return -1; }
+  { return ~(0); }
   else 
   { return map( analogRead( this->adc_pin ), 0, 1024, 0, this->scale_adc_milliamps ); }
 }
