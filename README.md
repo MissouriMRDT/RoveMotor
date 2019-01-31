@@ -4,6 +4,4 @@ Dev2019 for Missouri S and T IoT Rover, Networked Tiva C microcontroller booster
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Depends on RoveHalTiva, RoveMotor, RoveEncoder please install from:
 // https://github.com/MissouriMRDT/RoveHalTiva 
-// https://github.com/MissouriMRDT/RoveEncoder
-
 </pre>
