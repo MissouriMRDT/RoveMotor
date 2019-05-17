@@ -54,8 +54,8 @@ void RoveStmVnhPwm::attach( uint8_t          ina_pin,
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void RoveStmVnhPwm::writeCommand( bool ina_value, bool inb_value, int pwm_value )
 {
-  if( this->invert_motor )
-  { ina_value=!ina_value; 
+  if( this->invert_motor && (ina_value == true || inb_value == true)) //for Valkyrie moco's to have the LEDS correspond to actual signal
+  { ina_value=!ina_value;                                             //we can't invert 0 because then the motors seem to always be on
     inb_value=!inb_value; }
 
   if( this->scale_pwm_decipercent == 0 ){ pwm_value = map( abs( pwm_value ), 0, 1000, 0,   255 ); }
