@@ -5,8 +5,6 @@
 #ifndef ROVE_STM_VNH_PWM_H
 #define ROVE_STM_VNH_PWM_H
 
-#include "RoveBoardMap.h"
-
 #include <stdint.h>
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,10 +15,6 @@
 class RoveStmVnhPwm
 {
 public:
-  enum PWM_MODE { USE_ENERGIA_ANALOG_WRITE  = 1,
-                  USE_ROVE_PWM_ANALOG_WRITE = 2, };
-
-  uint8_t pwm_mode              = INVALID;
   uint8_t ina_pin;
   uint8_t inb_pin;
   uint8_t pwm_pin;
@@ -29,17 +23,13 @@ public:
   int     scale_pwm_decipercent = 1000;
   int     scale_adc_milliamps   = 20000;
 
-  bool isEnergiaAnalogWritePin( uint8_t pin );
-  bool isPwmAnalogWritePin(     uint8_t pin );
-  bool isPinValid(              uint8_t pin );
-
   void attach( uint8_t ina_pin,
                uint8_t inb_pin,
                uint8_t pwm_pin,
                bool    invert_motor        = false,
                int     bus_millivolts      = 12000,    // 12V bus
                int     scale_to_millivolts = 12000,    // 12V max = scale_to_millivolts / bus_millivolts => 100.0% scale
-               uint8_t adc_pin             = INVALID , 
+               uint8_t adc_pin             = 0,
                int     scale_to_milliamps  = 20000 );  // 20A max
         
   void drive(  int     decipercent );
