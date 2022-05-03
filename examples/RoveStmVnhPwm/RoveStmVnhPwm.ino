@@ -21,9 +21,11 @@ RoveStmVnhPwm BrushedDcMotor;
 //////////////////////////////////////////////////////////////////////////////////
 void setup() 
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
-  BrushedDcMotor.attach( PN_0, PF_4, PF_0 ); // ina=Led D2, inb=Led D3, pwm=Led D4
+  BrushedDcMotor.attach( PC_6, PE_4, PF_1 ); // ina=Led D2, inb=Led D3, pwm=Led D4
+
+  pinMode( PA_6, INPUT);
 //BrushedDcMotor2.attach( PX_0 ...
 }
 
@@ -31,36 +33,5 @@ void setup()
 void loop() 
 {
   Serial.println("StmVnhPwm sweep motor");
-
-  for(int i=0; i <= 1000; i++ )
-  {
-    BrushedDcMotor.drive( i );
-  //BrushedDcMotor2.drive( i ...
-    delay(30);
-  }
-
-  for(int i=1000; i > 0; i-- )
-  {
-    BrushedDcMotor.drive( i );
-  //BrushedDcMotor2.drive( i ...
-    delay(30);
-  }
-
-  delay(3000);
-
-  for(int i=0; i > -1000; i-- )
-  {
-    BrushedDcMotor.drive( i );
-  //BrushedDcMotor2.drive( i ...
-    delay(30);
-  }
-
-  for(int i=-1000; i < 0; i++ )
-  {
-    BrushedDcMotor.drive( i );
-  //BrushedDcMotor2.drive( i ...
-    delay(30);
-  }
-
-  delay(3000);
+  BrushedDcMotor.drive(1000);
 }

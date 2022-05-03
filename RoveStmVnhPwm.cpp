@@ -91,6 +91,12 @@ void RoveStmVnhPwm::brake( int decipercent )
 }
 
 ////////////////////////////////
+void RoveStmVnhPwm::hardBrake( int16_t decipercent )
+{
+  writeCommand( HIGH, HIGH, decipercent );
+}
+
+////////////////////////////////
 void RoveStmVnhPwm::coast() 
 { writeCommand( LOW, LOW, 0 ); }
 

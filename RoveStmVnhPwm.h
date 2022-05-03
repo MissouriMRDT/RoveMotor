@@ -45,6 +45,7 @@ public:
   void drive(  int     decipercent );
   void brake(  int     decipercent );
 
+  void hardBrake( int16_t decipercent );
   void coast(); 
   int  readMilliamps();
 
