@@ -25,9 +25,8 @@ public:
 	 * @brief Print the motor's pin number and the provided drive signal.
 	 * 
 	 * @param decipercent Motor output [-1000, 1000].
-     * @param timestamp Current timestamp in seconds.
 	 */
-	void drive(int16_t decipercent, float timestamp) const;
+	void drive(int16_t decipercent) const;
 	
 };
 

@@ -14,24 +14,17 @@ protected:
     uint16_t m_maxRamp = 0;
 
     mutable int16_t m_lastDecipercent = 0;
-    mutable float m_lastDriveTimestamp = 0;
+    #if defined(ARDUINO)
+    mutable uint32_t m_lastDriveTimestamp = 0;
+    #endif
 
     /**
-     * @brief Clamp the input decipercent between the configured maximum and minimum values.
+     * @brief Apply the configured invert and ramp rate, then clamp between the configured maximum and minimum values.
      * 
-     * @param decipercent Decipercent value to bound.
+     * @param decipercent Decipercent value to apply configs to.
      * @return Decipercent bounded to [m_reverseMaxDecipercent, m_reverseMinDecipercent] U {0} U [m_forwardMinDecipercent, m_forwardMaxDecipercent].
      */
-    int16_t boundDecipercent(int16_t decipercent) const;
-
-    /**
-     * @brief Apply the configured ramp rate to the motor output.
-     * 
-     * @param decipercent Decipercent value before ramp.
-     * @param timestamp Current timestamp in seconds.
-     * @return Decipercent value after ramp.
-     */
-    int16_t applyRamp(int16_t decipercent, float timestamp) const;
+    int16_t applyConfigs(int16_t decipercent) const;
 
 public:
 
@@ -76,9 +69,8 @@ public:
      * @brief Write the provided drive signal to the motor.
      * 
      * @param decipercent Motor output [-1000, 1000].
-     * @param timestamp Current time in seconds.
      */
-    virtual void drive(int16_t decipercent, float timestamp) const = 0;
+    virtual void drive(int16_t decipercent) const = 0;
 
 };
 
