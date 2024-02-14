@@ -33,7 +33,7 @@ public:
      * 
      * @param invert
      */
-    void configInvert(const bool& invert);
+    void configInvert(const bool invert);
 
     /**
      * @brief Set the maximum and minimum decipercent values written by drive().
@@ -41,7 +41,7 @@ public:
      * @param reverseMaxDecipercent maximum reverse motor output [-1000, 0].
      * @param forwardMaxDecipercent maximum forward motor output [0, 1000].
      */
-    void configMaxOutputs(const int16_t& reverseMaxDecipercent, const int16_t& forwardMaxDecipercent);
+    void configMaxOutputs(const int16_t reverseMaxDecipercent, const int16_t forwardMaxDecipercent);
 
     /**
      * @brief Set the decipercent values between which the output of drive() should be 0.
@@ -49,14 +49,14 @@ public:
      * @param reverseMinDecipercent minimum reverse motor output [-1000, 0].
      * @param forwardMinDecipercent minimum forward motor output [0, 1000].
      */
-    void configMinOutputs(const int16_t& reverseMinDecipercent, const int16_t& forwardMinDecipercent);
+    void configMinOutputs(const int16_t reverseMinDecipercent, const int16_t forwardMinDecipercent);
 
     /**
      * @brief Configure the maximum ramp rate of the motor.
      * 
      * @param maxRamp in decipercent per second.
      */
-    void configRampRate(const uint16_t& maxRamp);
+    void configRampRate(const uint16_t maxRamp);
 
     /**
      * @brief Read the last decipercent value written to the motor via drive(), after applying invert, output limits, and ramp rate.

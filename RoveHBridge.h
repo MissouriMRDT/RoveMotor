@@ -20,14 +20,14 @@ public:
 	 * @param forwardPin The Arduino pin number for the forward PWM signal.
 	 * @param reversePin The Arduino pin number for the reverse PWM signal.
 	 */
-	RoveHBridge(const uint8_t& forwardPin, const uint8_t& reversePin) : m_forwardPin(forwardPin), m_reversePin(reversePin) {}
+	RoveHBridge(const uint8_t forwardPin, const uint8_t reversePin) : m_forwardPin(forwardPin), m_reversePin(reversePin) {}
 
 	/**
 	 * @brief Configure the Arduino analogWriteFrequency() for the forward and reverse pins.
 	 * 
 	 * @param frequency Desired frequency, in Hz.
 	 */
-	void configFrequency(const uint16_t& frequency);
+	void configFrequency(const uint16_t frequency);
 
 	/**
 	 * @brief Write the provided drive signal to the motor via Arduino analogWrite().

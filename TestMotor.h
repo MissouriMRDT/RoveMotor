@@ -19,7 +19,7 @@ public:
 	 * 
 	 * @param pin An arbitrary pin number to identify the TestMotor.
 	 */
-	TestMotor(const uint8_t& pin) : m_pin(pin) {}
+	TestMotor(const uint8_t pin) : m_pin(pin) {}
 
 	/**
 	 * @brief Print the motor's pin number and the provided drive signal.

@@ -1,11 +1,11 @@
 #include "RoveMotor.h"
 
 
-void RoveMotor::configInvert(const bool& invert) {
+void RoveMotor::configInvert(const bool invert) {
     m_inverted = invert;
 }
 
-void RoveMotor::configMaxOutputs(const int16_t& reverseMaxDecipercent, const int16_t& forwardMaxDecipercent) {
+void RoveMotor::configMaxOutputs(const int16_t reverseMaxDecipercent, const int16_t forwardMaxDecipercent) {
     if (reverseMaxDecipercent >= -1000 && reverseMaxDecipercent <= 0) {
         m_reverseMaxDecipercent = reverseMaxDecipercent;
     }
@@ -14,7 +14,7 @@ void RoveMotor::configMaxOutputs(const int16_t& reverseMaxDecipercent, const int
     }
 }
 
-void RoveMotor::configMinOutputs(const int16_t& reverseMinDecipercent, const int16_t& forwardMinDecipercent) {
+void RoveMotor::configMinOutputs(const int16_t reverseMinDecipercent, const int16_t forwardMinDecipercent) {
     if (reverseMinDecipercent >= -1000 && reverseMinDecipercent <= 0) {
         m_reverseMinDecipercent = reverseMinDecipercent;
     }
@@ -23,7 +23,7 @@ void RoveMotor::configMinOutputs(const int16_t& reverseMinDecipercent, const int
     }
 }
 
-void RoveMotor::configRampRate(const uint16_t& maxRamp) {
+void RoveMotor::configRampRate(const uint16_t maxRamp) {
     m_maxRamp = maxRamp;
 }
 
