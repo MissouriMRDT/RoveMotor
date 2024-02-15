@@ -55,10 +55,8 @@ int16_t RoveMotor::applyConfigs(int16_t decipercent) const {
             }
         }
         
-        // Apply bounds
-        if (decipercent > m_reverseMinDecipercent && decipercent < m_forwardMinDecipercent) {
-            decipercent = 0;
-        } else if (decipercent < m_reverseMaxDecipercent) {
+        // Apply outer bounds
+        if (decipercent < m_reverseMaxDecipercent) {
             decipercent = m_reverseMaxDecipercent;
         } else if (decipercent > m_forwardMaxDecipercent) {
             decipercent = m_forwardMaxDecipercent;
@@ -67,6 +65,11 @@ int16_t RoveMotor::applyConfigs(int16_t decipercent) const {
 
     m_lastDriveTimestamp = timestamp;
     m_lastDecipercent = decipercent;
+
+    // Apply inner bounds
+    if (decipercent > m_reverseMinDecipercent && decipercent < m_forwardMinDecipercent) {
+        decipercent = 0;
+    }
     
     return decipercent;
 }
