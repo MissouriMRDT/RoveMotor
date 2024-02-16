@@ -5,7 +5,7 @@
 #include <Arduino.h>
 
 
-void RoveHBridge::configFrequency(const uint16_t frequency) {
+void RoveHBridge::configFrequency(const float frequency) {
 	analogWriteFrequency(m_forwardPin, frequency);
 	analogWriteFrequency(m_reversePin, frequency);
 }

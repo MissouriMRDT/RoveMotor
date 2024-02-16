@@ -27,7 +27,7 @@ public:
 	 * 
 	 * @param frequency Desired frequency, in Hz.
 	 */
-	void configFrequency(const uint16_t frequency);
+	void configFrequency(const float frequency);
 
 	/**
 	 * @brief Write the provided drive signal to the motor via Arduino analogWrite().
