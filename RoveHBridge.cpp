@@ -15,11 +15,11 @@ void RoveHBridge::drive(int16_t decipercent) const {
     
 	uint8_t forwardPWM, reversePWM;
 	if (decipercent >= 0) {
-		forwardPWM = decipercent * 255 / 1000;
+		forwardPWM = decipercent * 255 * 0.95 / 1000;
 		reversePWM = 0;
 	}
 	else {
-		reversePWM = -decipercent * 255 / 1000;
+		reversePWM = -decipercent * 255 * 0.95 / 1000;
 		forwardPWM = 0;
 	}
 
