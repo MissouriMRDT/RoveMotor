@@ -47,6 +47,9 @@ int16_t RoveMotor::applyConfigs(int16_t decipercent) const {
         // Apply ramp
         if (m_maxRamp != 0) {
             int32_t ramp = (timestamp - m_lastDriveTimestamp) * m_maxRamp/1000;
+            if (ramp == 0) {
+                return m_lastDecipercent;
+            }
             if ((decipercent - m_lastDecipercent) > ramp) {
                 decipercent = m_lastDecipercent + ramp;
             }
