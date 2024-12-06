@@ -19,7 +19,7 @@ void TestMotor::drive(int16_t decipercent) const {
 void TestMotor::drive(int16_t decipercent) const {
     decipercent = applyConfigs(decipercent);
 
-	std::cout << "Pin " << m_pin << " driving at " << decipercent << std::endl;
+    std::cout << "Pin " << m_pin << " driving at " << decipercent << std::endl;
 }
 
 #endif

@@ -38,7 +38,7 @@ void RoveVNH::init() {
 }
 
 void RoveVNH::configFrequency(const float frequency) {
-	analogWriteFrequency(m_pwmPin, frequency);
+    analogWriteFrequency(m_pwmPin, frequency);
 }
 
 void RoveVNH::configCSScale(float gain) {
@@ -69,7 +69,7 @@ void RoveVNH::drive(int16_t decipercent) const {
         digitalWrite(m_reversePin, LOW);
     }
 
-	analogWrite(m_forwardPin, pwm);
+    analogWrite(m_forwardPin, pwm);
 }
 
 
