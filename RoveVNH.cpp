@@ -9,11 +9,10 @@ RoveVNH::RoveVNH(const uint8_t pwmPin, const uint8_t forwardPin, const uint8_t r
     m_hasCS = false;
 }
 
-RoveVNH::RoveVNH(const uint8_t pwmPin, const uint8_t forwardPin, const uint8_t reversePin, const uint8_t selectPin, const uint8_t csPin) {
+RoveVNH::RoveVNH(const uint8_t pwmPin, const uint8_t forwardPin, const uint8_t reversePin, const uint8_t csPin) {
     m_pwmPin = pwmPin;
     m_forwardPin = forwardPin;
     m_reversePin = reversePin;
-    m_selectPin = selectPin;
     m_csPin = csPin;
 
     m_hasCS = true;
@@ -28,12 +27,13 @@ RoveVNH::RoveVNH(const uint8_t pwmPin, const uint8_t forwardPin, const uint8_t r
 void RoveVNH::init() {
     pinMode(m_forwardPin, OUTPUT);
     pinMode(m_reversePin, OUTPUT);
+    pinMode(m_pwmPin, OUTPUT);
     digitalWrite(m_forwardPin, LOW);
     digitalWrite(m_reversePin, LOW);
     analogWrite(m_pwmPin, 0);
 
     if (m_hasCS) {
-        pinMode(m_selectPin, OUTPUT);
+        pinMode(m_csPin, INPUT);
     }
 }
 
@@ -46,10 +46,8 @@ void RoveVNH::configCSScale(float gain) {
 }
 
 float RoveVNH::readCurrent() {
-    digitalWrite(m_selectPin, HIGH);
     delayNanoseconds(50);
     float current = analogRead(m_csPin) * m_csGain;
-    digitalWrite(m_selectPin, LOW);
 
     return current;
 }

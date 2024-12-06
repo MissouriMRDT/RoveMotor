@@ -10,7 +10,7 @@ class RoveVNH : public RoveMotor {
 
 private:
 
-    uint8_t m_pwmPin, m_forwardPin, m_reversePin, m_selectPin, m_csPin;
+    uint8_t m_pwmPin, m_forwardPin, m_reversePin, m_csPin;
     bool m_hasCS;
     float m_csGain = 1;
 
@@ -31,10 +31,9 @@ public:
      * @param pwmPin Arduino pin number for the pwm signal. Must be PWM capable.
      * @param forwardPin Arduino pin number for the forward digital output.
      * @param reversePin Arduino pin number for the reverse digital output.
-     * @param selectPin Arduino pin number for the current sense select digital output.
      * @param csPin Arduino pin number for the current sense input. Must be an analog input pin.
      */
-    RoveVNH(const uint8_t pwmPin, const uint8_t forwardPin, const uint8_t reversePin, const uint8_t selectPin, const uint8_t csPin);
+    RoveVNH(const uint8_t pwmPin, const uint8_t forwardPin, const uint8_t reversePin, const uint8_t csPin);
 
     /**
      * @brief Initialize hardware.
