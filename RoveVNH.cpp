@@ -53,13 +53,13 @@ float RoveVNH::readCurrent() {
 }
 
 void RoveVNH::drive(int16_t decipercent) const {
-    decipercent = applyConfigs(decipercent);
-    uint8_t pwm = decipercent * 255 / 1000;
+    int32_t rampedDecipercent = applyConfigs(decipercent);
+    uint8_t pwm = abs(rampedDecipercent) * 255 / 1000;
 
-    if (decipercent > 0) {
-        digitalWrite(m_reversePin, LOW);
+    if (rampedDecipercent > 0) {
         digitalWrite(m_forwardPin, HIGH);
-    } else if (decipercent < 0) {
+        digitalWrite(m_reversePin, LOW);
+    } else if (rampedDecipercent < 0) {
         digitalWrite(m_forwardPin, LOW);
         digitalWrite(m_reversePin, HIGH);
     } else {
@@ -67,7 +67,7 @@ void RoveVNH::drive(int16_t decipercent) const {
         digitalWrite(m_reversePin, LOW);
     }
 
-    analogWrite(m_forwardPin, pwm);
+    analogWrite(m_pwmPin, pwm);
 }
 
 
