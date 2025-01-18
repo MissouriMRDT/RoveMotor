@@ -1,17 +1,21 @@
 {
-    "name": "RoveMotor",
-    "author": "MST MRDT",
-    "version": "1.0.0",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/MissouriMRDT/RoveMotor.git"
-    },
-    "description": "Embedded software libraries for motor control, developed for use with Arduino.",
-    "keywords": [ "rovemotor", "mrdt" ],
-    "frameworks": [ "arduino" ],
-    "platforms": [ "titiva", "teensy" ],
-    "dependencies": {
-      "external-repo": "https://github.com/SolidGeek/VescUart.git"
-    },
-    "examples": []
-  }
+  "name": "RoveMotor",
+  "author": "MST MRDT",
+  "version": "1.0.0",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/MissouriMRDT/RoveMotor.git"
+  },
+  "description": "Embedded software libraries for motor control, developed for use with Arduino.",
+  "keywords": [ "rovemotor", "mrdt" ],
+  "frameworks": [ "arduino" ],
+  "platforms": [ "titiva", "teensy" ],
+  "dependencies": [
+    {
+      "owner": "solidgeek",
+      "name": "VescUart",
+      "version": "^1.0.1"
+    }
+  ],
+  "examples": []
+}
