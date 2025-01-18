@@ -66,7 +66,7 @@ public:
      * 
      * @param decipercent Motor output [-1000, 1000].
      */
-    void drive(int16_t decipercent) const;
+    void drive(int16_t decipercent) const override;
 
 };
 

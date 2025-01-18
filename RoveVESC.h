@@ -17,19 +17,19 @@ private:
 
 public:
 
-	/**
-	 * @brief Construct a new RoveVESC object.
-	 * 
+    /**
+     * @brief Construct a new RoveVESC object.
+     * 
      * @param SerialPort Arduino serial port, i.e. Serial1
-	 */
-	RoveVESC(Stream* SerialPort);
+     */
+    RoveVESC(Stream* SerialPort);
 
-	/**
-	 * @brief Write the provided drive signal to the motor via Arduino analogWrite().
-	 * 
-	 * @param decipercent Motor output [-1000, 1000].
-	 */
-	void drive(int16_t decipercent) const;
+    /**
+     * @brief Write the provided drive signal to the motor via Arduino analogWrite().
+     * 
+     * @param decipercent Motor output [-1000, 1000].
+     */
+    void drive(int16_t decipercent) const override;
 
 };
 
