@@ -14,9 +14,7 @@ protected:
     uint16_t m_maxRamp = 0;
 
     mutable int16_t m_lastDecipercent = 0;
-    #if defined(ARDUINO)
     mutable uint32_t m_lastDriveTimestamp = 0;
-    #endif
 
     /**
      * @brief Apply the configured invert and ramp rate, then clamp between the configured maximum and minimum values.

@@ -1,5 +1,6 @@
 #include "RoveMotor.h"
 
+#include <Arduino.h>
 
 void RoveMotor::configInvert(const bool invert) {
     m_inverted = invert;
@@ -32,38 +33,33 @@ int16_t RoveMotor::lastDecipercent() const {
 }
 
 
-#if defined(ARDUINO)
-#include "Arduino.h"
-
 int16_t RoveMotor::applyConfigs(int16_t decipercent) const {
     uint32_t timestamp = millis();
-    
-    if (decipercent != 0) { // A demand of 0 always outputs 0
-        // Apply invert
-        if (m_inverted) {
-            decipercent = -decipercent;
+
+    // Apply invert
+    if (m_inverted) {
+        decipercent = -decipercent;
+    }
+
+    // Apply ramp
+    if (m_maxRamp != 0) {
+        int32_t ramp = (timestamp - m_lastDriveTimestamp) * m_maxRamp/1000;
+        if (ramp == 0) {
+            return m_lastDecipercent;
         }
-        
-        // Apply ramp
-        if (m_maxRamp != 0) {
-            int32_t ramp = (timestamp - m_lastDriveTimestamp) * m_maxRamp/1000;
-            if (ramp == 0) {
-                return m_lastDecipercent;
-            }
-            if ((decipercent - m_lastDecipercent) > ramp) {
-                decipercent = m_lastDecipercent + ramp;
-            }
-            else if ((decipercent - m_lastDecipercent) < -ramp) {
-                decipercent = m_lastDecipercent - ramp;
-            }
+        if ((decipercent - m_lastDecipercent) > ramp) {
+            decipercent = m_lastDecipercent + ramp;
         }
-        
-        // Apply outer bounds
-        if (decipercent < m_reverseMaxDecipercent) {
-            decipercent = m_reverseMaxDecipercent;
-        } else if (decipercent > m_forwardMaxDecipercent) {
-            decipercent = m_forwardMaxDecipercent;
+        else if ((decipercent - m_lastDecipercent) < -ramp) {
+            decipercent = m_lastDecipercent - ramp;
         }
+    }
+
+    // Apply outer bounds
+    if (decipercent < m_reverseMaxDecipercent) {
+        decipercent = m_reverseMaxDecipercent;
+    } else if (decipercent > m_forwardMaxDecipercent) {
+        decipercent = m_forwardMaxDecipercent;
     }
 
     m_lastDriveTimestamp = timestamp;
@@ -76,5 +72,3 @@ int16_t RoveMotor::applyConfigs(int16_t decipercent) const {
     
     return decipercent;
 }
-
-#endif
