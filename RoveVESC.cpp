@@ -21,7 +21,7 @@ void RoveVESC::drive(int16_t decipercent) const {
     */
 }
 
-RoveVESC RoveVESC::getVescTelemetry() {
+VescValues RoveVESC::getVescTelemetry() {
     VescValues ret;
     m_vesc.getVescValues();
     ret.avgMotorCurrent = m_vesc.data.avgMotorCurrent;
