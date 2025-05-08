@@ -67,17 +67,45 @@ public:
     VescValues getVescTelemetry() const;
 
     /**
-     * @brief Set maximum RPM
+     * @brief Set the maximum RPM. Default is 5000.
      * 
-     * @param maxRPM max
+     * @param maxRPM Maximum output RPM.
      */
-    void setMaxRPM(float maxRPM);
+    void configMaxRPM(float maxRPM);
+
+    /**
+     * @brief Get the maximum RPM set for this RoveVESC.
+     * 
+     * @return The maximum RPM
+     */
     float getMaxRPM() const;
 
-    void setPoles(uint8_t poles);
+    /**
+     * @brief Set the number of motor poles. Default is 14.
+     * 
+     * @param poles The number of motor poles.
+     */
+    void configMotorPoles(uint8_t poles);
+
+    /**
+     * @brief Get the number of motor poles for this RoveVESC.
+     * 
+     * @return The number of motor poles.
+     */
     uint8_t getPoles() const;
 
-    void setGearRatio(float gearRatio);
+    /**
+     * @brief Set the gear ratio of the gearbox. Default is 1.
+     * 
+     * @param gearRatio Gear ratio computed as (input turns / output turns).
+     */
+    void configGearRatio(float gearRatio);
+
+    /**
+     * @brief Get the gear ratio for this RoveVESC
+     * 
+     * @return The gear ratio computed as (input turns / output turns).
+     */
     float getGearRatio() const;
 
 };

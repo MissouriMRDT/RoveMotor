@@ -41,7 +41,7 @@ VescValues RoveVESC::getVescTelemetry() const {
     return ret;
 }
 
-void RoveVESC::setMaxRPM(float maxRPM) {
+void RoveVESC::configMaxRPM(float maxRPM) {
     m_maxRPM = maxRPM;
 }
 
@@ -49,7 +49,7 @@ float RoveVESC::getMaxRPM() const {
     return m_maxRPM;
 }
 
-void RoveVESC::setPoles(uint8_t poles) {
+void RoveVESC::configMotorPoles(uint8_t poles) {
     m_poles = poles;
 }
 
@@ -57,7 +57,7 @@ uint8_t RoveVESC::getPoles() const {
     return m_poles;
 }
 
-void RoveVESC::setGearRatio(float gearRatio) {
+void RoveVESC::configGearRatio(float gearRatio) {
     m_gearRatio = gearRatio;
 }
 
