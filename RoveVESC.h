@@ -32,6 +32,9 @@ class RoveVESC : public RoveMotor {
 private:
 
     mutable VescUart m_vesc;
+    uint8_t m_poles = 14;
+    float m_maxRPM = 5000;
+    float m_gearRatio = 1; // Input over output
 
 public:
 
@@ -49,7 +52,33 @@ public:
      */
     void drive(int16_t decipercent) const override;
 
-    VescValues getVescTelemetry();
+    /**
+     * @brief Write the provided RPM to the motor.
+     * 
+     * @param normalizedSpeed Motor output [-1.0, 1.0].
+     */
+    void driveRPM(float normalizedSpeed) const;
+
+    /**
+     * @brief Query the VESC for telemetry.
+     * 
+     * @return VESC telemetry as a VescValues struct.
+     */
+    VescValues getVescTelemetry() const;
+
+    /**
+     * @brief Set maximum RPM
+     * 
+     * @param maxRPM max
+     */
+    void setMaxRPM(float maxRPM);
+    float getMaxRPM() const;
+
+    void setPoles(uint8_t poles);
+    uint8_t getPoles() const;
+
+    void setGearRatio(float gearRatio);
+    float getGearRatio() const;
 
 };
 

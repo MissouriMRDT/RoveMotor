@@ -9,19 +9,17 @@ void RoveVESC::drive(int16_t decipercent) const {
 
     float duty = (float) decipercent / 1000.0;
     m_vesc.setDuty(duty);
-
-    // RPM control
-    /*
-    // map to [0, 750] RPM
-    float rpm = decipercent * 750 / 1000.0;
-    rpm *= 9; // motor must spin 9x faster to spin the wheel at the desired RPM
-    rpm /= 14; // engine RPM = rpm * #poles 
-
-    m_vesc.setRPM(rpm);
-    */
 }
 
-VescValues RoveVESC::getVescTelemetry() {
+void RoveVESC::driveRPM(float normalizedSpeed) const {
+    float rpm = normalizedSpeed * m_maxRPM;
+    rpm *= (m_poles / 2.0f) * m_gearRatio;
+
+    m_vesc.setRPM(rpm);
+}
+
+
+VescValues RoveVESC::getVescTelemetry() const {
     VescValues ret;
     m_vesc.getVescValues();
     ret.avgMotorCurrent = m_vesc.data.avgMotorCurrent;
@@ -41,4 +39,28 @@ VescValues RoveVESC::getVescTelemetry() {
     ret.id = m_vesc.data.id;
     ret.error = m_vesc.data.error;
     return ret;
+}
+
+void RoveVESC::setMaxRPM(float maxRPM) {
+    m_maxRPM = maxRPM;
+}
+
+float RoveVESC::getMaxRPM() const {
+    return m_maxRPM;
+}
+
+void RoveVESC::setPoles(uint8_t poles) {
+    m_poles = poles;
+}
+
+uint8_t RoveVESC::getPoles() const {
+    return m_poles;
+}
+
+void RoveVESC::setGearRatio(float gearRatio) {
+    m_gearRatio = gearRatio;
+}
+
+float RoveVESC::getGearRatio() const {
+    return m_gearRatio;
 }
